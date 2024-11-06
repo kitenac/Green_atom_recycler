@@ -1,4 +1,9 @@
 # Как использовать, развёртывать
+
+# Prodmode - Dockercompose
+просто взять файл docker-compose.yml и запустить:
+docker compose up
+
 ### Devmode
 #создать venv и пакеты установить\
 python3 -m venv myenv\
@@ -27,9 +32,6 @@ python3 main.py        # запустить приложение\
 
 ### Уведеть и добавить сущности удобно через Swager UI - http://127.0.0.1:8001/docs
 также можно добавить новых отходов организаций и ячеек храннения через вызов asyncio.run(MockAtomEco.OO_MNO_wastes_populate()) из mock_tables.py, но тогда нужно перезагрузить main.py т.к. у моков нет IPC синхронизации с десоном, в отличии от ручек API по добавлению сущностей\
-
-# Prodmode
-- Dockercompose - надеюсь я успею его написать
 
 
 # DB schema:
