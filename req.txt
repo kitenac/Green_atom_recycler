@@ -9,3 +9,5 @@ factory_boy                         # for mocks - realistic data + sqlalchemy in
 faker                               # for mocks data
 networkx                            # for generating graph of relations between entities
 matplotlib                          # for generating graph of relations between entities
+sqlalchemy_utils                    # for creating DB
+psycopg2                            # dependency for creating DB

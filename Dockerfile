@@ -1,27 +1,36 @@
+FROM python:3.12-alpine
+WORKDIR /atom_eco
 
-нужно для отрисовки графа БД:
+# coppy all files inside cur dir: /atom_eco | [NOTE] .dockerignore filters unnecessory files
+COPY . .
 
-sudo apt-get install graphviz
-sudo apt-get install --reinstall xdg-utils
+# нужно для отрисовки графа БД:
+RUN apk update
+RUN apk add --no-cache graphviz
+RUN apk add --no-cache xdg-utils
 
+# создать venv и пакеты установить
+RUN python3 -m venv myenv
+RUN source myenv/bin/activate
 
-# Уже не нужно
-for entities graphs:
-sudo apt-get install libbz2-dev 
+# Install the dependencies | [Note] happens on build => no need to reinstall it on each run 
+# [reducing size] --no-cache-dir: pip won`t store the downloaded packages in its cache directory - This means that every time you run the pip install command, it will fetch the packages from the internet rather than using any previously cached versions.
 
-than reinstall current python version (3.12.1 in my case)
-bc python can`t see libbz2-dev without reinstalation: https://stackoverflow.com/questions/27727919/pythonbrew-importing-bz2-yields-importerror-no-module-named-bz2
-- pyenv uninstall 3.12.1
-- pyenv install 3.12.1
-# Уже не нужно
+RUN apk add --no-cache postgresql-dev       # install PostgreSQL development package - need for psycopg2 from req.txt
+RUN pip install --no-cache-dir -r ./req.txt
 
+# настроим ENV аргументы
+ARG PORT=8001
+ARG POSTGRES_PASSWORD="root"
+ARG POSTGRES_USER="root"
 
-sudo pip install -r req.txt
+ENV PORT=${PORT}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_USER=${POSTGRES_USER}
 
-ENV настроить в контейнере постгрес
-POSTGRES_PASSWORD = root
-POSTGRES_USER = root
+# exposing container from port given as arguemnt to container
+EXPOSE $PORT
 
-
-# mocking tables with data:
-python3 mock_tables.py
+# заполнить таблицы с мок-данными и запустить приложение
+RUN chmod +x ./start.sh 
+ENTRYPOINT ["./start.sh"]
