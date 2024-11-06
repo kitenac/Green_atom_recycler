@@ -5,9 +5,9 @@ python3 -m venv myenv\
 source myenv/bin/activate\
 pip install -r req.txt\
 
-если хочется перегенерировать схему таблиц - нужны пакеты:
-sudo apt-get install graphviz
-sudo apt-get install --reinstall xdg-utils
+если хочется перегенерировать схему таблиц - нужны пакеты:\
+sudo apt-get install graphviz\
+sudo apt-get install --reinstall xdg-utils\
 
 #создание иллюстрации со схемой таблиц\
 python3 -m db-visualizer.db-visualizer # перегенерировать схему таблиц - data_model_diagram.svg\
