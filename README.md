@@ -5,6 +5,8 @@ python3 -m venv myenv\
 source myenv/bin/activate\
 pip install -r req.txt\
 
+в postgres создать БД Atom_eco, с у/з root:root\
+
 если хочется перегенерировать схему таблиц - нужны пакеты:\
 sudo apt-get install graphviz\
 sudo apt-get install --reinstall xdg-utils\
