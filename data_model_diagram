@@ -1,0 +1,141 @@
+// Interactive Data Models
+digraph {
+	graph [bgcolor="#EEEEEE" rankdir=TB splines=spline]
+	node [fontname=Roboto fontsize=12 shape=none]
+	edge [fontname=Roboto fontsize=10]
+	Polluter_OO [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Polluter_OO</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">name</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(64) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">x_geo</TD>
+                         <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">y_geo</TD>
+                         <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://Polluter_OO_details.html"]
+	Recycler_MNO [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Recycler_MNO</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">name</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(64) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">x_geo</TD>
+                         <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">y_geo</TD>
+                         <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://Recycler_MNO_details.html"]
+	WasteCategory [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">WasteCategory</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">category</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(32) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">time_to_recycle</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://WasteCategory_details.html"]
+	RecyclerStorage [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">RecyclerStorage</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">recycler_id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">category</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(32) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">capacity</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">amount_occupied</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://RecyclerStorage_details.html"]
+	RecyclerStorage -> Recycler_MNO [label=recycler color="#1E88E5" style=dashed tooltip="Relation between RecyclerStorage and Recycler_MNO"]
+	RecyclerStorage -> WasteCategory [label=WasteCategory color="#1E88E5" style=dashed tooltip="Relation between RecyclerStorage and WasteCategory"]
+	PolluterWaste [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">PolluterWaste</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">polluter_id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">amount</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">category</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(32) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://PolluterWaste_details.html"]
+	PolluterWaste -> Polluter_OO [label=polluter color="#1E88E5" style=dashed tooltip="Relation between PolluterWaste and Polluter_OO"]
+	PolluterWaste -> WasteCategory [label=WasteCategory color="#1E88E5" style=dashed tooltip="Relation between PolluterWaste and WasteCategory"]
+	RecyclerWaste [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">RecyclerWaste</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">recycler_id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">release_time</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">amount</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">category</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(32) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">created_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">updated_at</TD>
+                         <TD BGCOLOR="#BBDEFB">TIMESTAMP ()</TD>
+                         </TR></TABLE>> URL="http://RecyclerWaste_details.html"]
+	RecyclerWaste -> Recycler_MNO [label=recycler color="#1E88E5" style=dashed tooltip="Relation between RecyclerWaste and Recycler_MNO"]
+	RecyclerWaste -> WasteCategory [label=WasteCategory color="#1E88E5" style=dashed tooltip="Relation between RecyclerWaste and WasteCategory"]
+}
