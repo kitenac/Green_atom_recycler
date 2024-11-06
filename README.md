@@ -5,9 +5,14 @@ python3 -m venv myenv\
 source myenv/bin/activate\
 pip install -r req.txt\
 
-#запуск\
+если хочется перегенерировать схему таблиц - нужны пакеты:
+sudo apt-get install graphviz
+sudo apt-get install --reinstall xdg-utils
+
+#создание иллюстрации со схемой таблиц\
 python3 -m db-visualizer.db-visualizer # перегенерировать схему таблиц - data_model_diagram.svg\
 
+#запуск приложения
 python3 mock_tables.py # заполнить таблицы мок-данными\
 python3 main.py        # запустить приложение\
 
