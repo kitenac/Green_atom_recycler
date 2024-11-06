@@ -25,6 +25,7 @@ from app.db import sessionFactory
 from app.models import Models
 
 
+
 class RecyclerDemon:
     '''
     tldr: 
@@ -78,7 +79,7 @@ class RecyclerDemon:
             await SessionLocal.commit()
             
             # feed the demon new data  in pydentic-DTO - due it can live without session
-            send_command_to_demon('Polluter_OO_ADD', Polluter_OO(**polluter.__dict__))  
+            send_command_to_demon('Polluter_OO_ADD', convert_to_pydentic(polluter, Polluter_OO))
                 
     '''
 
@@ -189,7 +190,7 @@ class RecyclerDemon:
         '''
         now = datetime.now()
         ready_to_release = list(filter(lambda x: now >= x.release_time, self.recycling_queury))
-    
+
         # convert pydentic schema to sqlalchemy model         
         async with sessionFactory() as DeleteSession:
             if ready_to_release:
@@ -302,12 +303,12 @@ class RecyclerDemon:
             await addSession.commit()
 
             # UPDATE Demon`s state after DB was written - in pydentic !!!
-            params = recycler_waste.__dict__
+            '''params = recycler_waste.__dict__
             # cast ids to str - to make pydentic and postgres CALM about UUID4 and str for id in different places - everywhere`ll be str
             params['id'] = str(recycler_waste.id)
-            params['recycler_id'] = str(recycler_waste.recycler_id)
+            params['recycler_id'] = str(recycler_waste.recycler_id)'''
 
-            self.RecyclerWaste_ADD(RecyclerWaste(**params))  
+            self.RecyclerWaste_ADD(convert_to_pydentic(recycler_waste, RecyclerWaste))  
 
 
     async def move_from_wastes_to_storages(
@@ -382,25 +383,27 @@ class RecyclerDemon:
         '''
         await self.copy_DB() # load DB in Demon`s memory   
         
-        #with open('recycle_demon_logs', mode='a') as logs:
-        #    logs.write(f'UGABUGA Wastes:\n {self.wastes_queury}')
-
         # main loop
-        while 'App is running':  
-            for waste_cell in self.wastes_queury:
-                #logger.log.info('recycler demon')
-                # listen to main.py if he has some commands that will deliver data (_ADD methods) to feed Demon`s in-memory tables (in atributes)
-                self.listen_IPC_commands()
-                # clean up storage-slots if it`s time - some wastes are mb already recycled
+        while True:
+            # listen to main.py if he has some commands that will deliver data (_ADD methods) to feed Demon`s in-memory tables (in atributes)
+            self.listen_IPC_commands()
+            # clean up storage-slots if it`s time - some wastes are mb already recycled
+            if self.recycling_queury:
                 await self.release_recycling_queury()
-                          
-                # find closest storages that can recycle such category of waste 
-                closest_storages = await self.find_closest_storages(waste_cell)
 
-                # moving wastes to possible storages preffering closests ones
-                if closest_storages:
-                    await self.move_from_wastes_to_storages(waste_cell, closest_storages) 
-            
+            # manage wastes from polluters
+            if self.wastes_queury:
+                for waste_cell in self.wastes_queury:
+                    # find closest storages that can recycle such category of waste 
+                    closest_storages = await self.find_closest_storages(waste_cell)
+
+                    # moving wastes to possible storages preffering closests ones
+                    if closest_storages:
+                        await self.move_from_wastes_to_storages(waste_cell, closest_storages) 
+                
+                    '''with open('recycle_demon_logs', mode='a') as logs:
+                        logs.write(f'\n RecyclerStorage now: {self.recycling_queury}\n')'''
+
 
 
     def listen_IPC_commands(self):
@@ -420,10 +423,15 @@ class RecyclerDemon:
                     method(value)
                 else:
                     print(f"Method {method_name} not found.")
+        
+                with open('recycle_demon_logs', mode='a') as logs:
+                    logs.write(f'\nIPC-queue got command:\n {command}')
+                    logs.write(f'\nLast polluter waste now: {self.wastes_queury[-1].__dict__}\n')
+                    #logs.write(f'\nLast RecyclerStorage now: {self.storage_slots[-1].__dict__}\n')
 
     ''' 
     methods that are being used in IPC between Demon and main.py 
-    Update attributes methods:
+    Update in-memory attributes methods:
      ment to be used in app`s functions that changes (Add, Del, Modify) any of tables
       - to keep data in Demon up to date (stores in RAM)
     '''

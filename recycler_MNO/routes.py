@@ -28,7 +28,8 @@ async def create_recycler(
     SessionLocal.add(recycler)
     await SessionLocal.commit()
 
-    send_command_to_demon('Recycler_MNO_ADD', Recycler_MNO(**recycler.__dict__))
+    #send_command_to_demon('Recycler_MNO_ADD', Recycler_MNO(**recycler.__dict__))
+    send_command_to_demon('Recycler_MNO_ADD', convert_to_pydentic(recycler, Recycler_MNO))
     return API_Response(
         **common_statuses[201]['CREATED'],
         code=201
@@ -58,7 +59,7 @@ async def add_recycler_storage_slot(
         SessionLocal.add(recycler_storage_slot)
         await SessionLocal.commit()
 
-        send_command_to_demon('RecyclerStorage_ADD', RecyclerStorage(**recycler_storage_slot.__dict__))
+        send_command_to_demon('RecyclerStorage_ADD', convert_to_pydentic(recycler_storage_slot, RecyclerStorage))
         return API_Response(
         **common_statuses[201]['CREATED'],
         code=201)

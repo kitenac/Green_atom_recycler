@@ -10,6 +10,8 @@ from app.response_statuses import common_status_resolver, common_statuses, categ
 
 from demon_main_IPC import send_command_to_demon # way to notify demon that there`re new entities in DB
 
+from mock_tables import MockAtomEco
+
 router = APIRouter(prefix='/polluter')
 
 
@@ -25,7 +27,8 @@ async def create_polutor(
     SessionLocal.add(polluter)
     await SessionLocal.commit()
     
-    send_command_to_demon('Polluter_OO_ADD', Polluter_OO(**polluter.__dict__))  # feed the demon new data
+    #send_command_to_demon('Polluter_OO_ADD', Polluter_OO(**polluter.__dict__))  # feed the demon new data
+    send_command_to_demon('Polluter_OO_ADD', convert_to_pydentic(polluter, Polluter_OO))
     return API_Response(
         **common_statuses[201]['CREATED'],
         code=201
@@ -53,12 +56,18 @@ async def add_polluter_wastes(
     SessionLocal.add(polluter_waste)
     await SessionLocal.commit()
 
-    send_command_to_demon('PolluterWaste_ADD', PolluterWaste(**polluter_waste.__dict__))
+    #send_command_to_demon('PolluterWaste_ADD', PolluterWaste(**polluter_waste.__dict__))
+    send_command_to_demon('PolluterWaste_ADD', convert_to_pydentic(polluter_waste, PolluterWaste))
     return API_Response(
         **common_statuses[201]['CREATED'],
         code=201
     )
 
+# Generate Mock polluter wastes
+'''TODO - now it has problems with loading entities in Demon
+@router.post('/mock/wastes', summary='Generate random polluter wastes')
+async def add_polluter_wastes():
+    await MockAtomEco.MOCK_OO_wastes_populate()'''
 
 
 # Read

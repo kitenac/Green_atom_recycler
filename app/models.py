@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, CHAR, TIMESTAMP, Interval, NUMERIC, func, PrimaryKeyConstraint
+from sqlalchemy import Column, ForeignKey, Integer, CHAR, VARCHAR, TIMESTAMP, Interval, NUMERIC, func, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import relationship  # high level data access for related tables
 import uuid
@@ -34,7 +34,7 @@ class Models:
     # common poles for organizations: OO and MNO 
     class CommonOrg(CommonModel):
         __abstract__ = True
-        name  = Column(CHAR(64), nullable=False)
+        name  = Column(VARCHAR(64), nullable=False)
         
         # 2D-geo with 6 digets before and after comma 
         # - 12 digets in total, where 6 are for precision
@@ -56,7 +56,7 @@ class Models:
         __tablename__ = 'WasteCategory'
         id = None # exclude common PK - here it`s different PK - category
         
-        category = Column(CHAR(32), primary_key=True, nullable=False) # uniqness off waste competly relys on it`s name (unlike organizations that may have common names)
+        category = Column(VARCHAR(32), primary_key=True, nullable=False) # uniqness off waste competly relys on it`s name (unlike organizations that may have common names)
         time_to_recycle = Column(Interval, nullable=False)            # usage:  datetime.timedelta(hours=152, minutes=21) | how much it takes to recycle this waste
         
         def __str__(self):
@@ -70,7 +70,7 @@ class Models:
         # pair of FK is a PK in storage
         __table_args__ = (PrimaryKeyConstraint('recycler_id', 'category'),)
         recycler_id = Column(CHAR(36), ForeignKey('Recycler_MNO.id'), primary_key=True)
-        category    = Column(CHAR(32), ForeignKey('WasteCategory.category'), primary_key=True)
+        category    = Column(VARCHAR(32), ForeignKey('WasteCategory.category'), primary_key=True)
         
         capacity = Column(Integer, nullable=False) # total capacity of Recycler
         amount_occupied = Column(Integer, default=0) # total size of recived wastes
@@ -87,7 +87,7 @@ class Models:
     class WasteInfo(CommonModel):
         __abstract__ = True
         amount      = Column(Integer, default=0)
-        category    = Column(CHAR(32), ForeignKey('WasteCategory.category'))
+        category    = Column(VARCHAR(32), ForeignKey('WasteCategory.category'))
 
         # define relationship in abstract class
         @declared_attr

@@ -29,3 +29,4 @@ if __name__ == "__main__":
   finally:
     # if the app was broken/exited - terminate demon process - not to allow zombies 
     My_RecyclerDemon.demon_process.terminate()
+

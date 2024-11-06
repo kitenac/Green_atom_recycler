@@ -1,7 +1,6 @@
 import random
 import asyncio
-import datetime
-from dataclasses import dataclass
+from datetime import timedelta
 from itertools import product       # to check avaliable combinations of composite PK   
 
 from factory import LazyFunction
@@ -15,6 +14,8 @@ from sqlalchemy import func
 from sqlalchemy.future import select 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.schemas import *
+from demon_main_IPC import send_command_to_demon 
 
 # ==== helper functions for mocks - mb move `em in separate file later ====
 def get_random_coord(digets: int = 6):
@@ -25,7 +26,7 @@ def get_random_coord(digets: int = 6):
 
 def time_m(x: int):
     '''time in minutes'''
-    return datetime.timedelta(minutes=x)
+    return timedelta(minutes=x)
 
 # data predefined by task
 WasteCategory = {
@@ -261,6 +262,56 @@ class MockAtomEco:
                 print(el.__dict__) # TODO: move in logs
                 session.add(el) 
                 await session.commit() 
+
+
+
+    # ======= For API rutes: backend IPC with Demon =======
+    # to be used from app`s routes, not from this file !!! (requires Demon to be started)
+    @staticmethod
+    async def MOCK_OO_wastes_populate():
+            '''
+            Populate polluter_wastes
+
+            Generate -random: 
+            - Waste by random Polluter 
+            '''
+            async with sessionFactory() as session:  # Create a new session
+                # Generate entities instances - using the factory | generate_ - in-memory creation - no need to db-session passing
+                polluter_waste = await PolluterWasteFactory(size=5)            
+                # pull entities to the DB
+                for el in polluter_waste:
+                    print(el.__dict__) # TODO: move in logs
+                    session.add(el) 
+                    await session.commit() 
+                    # feed data to Demon via IPC
+                    send_command_to_demon('PolluterWaste_ADD', convert_to_pydentic(el, PolluterWaste))
+
+    @staticmethod
+    async def MOCK_MNO_wastes_populate():
+        '''
+        Populate High-lvl tables (with FK)
+
+        Generate -random: 
+          - Storages of random sizes for Recyclers
+        '''
+        async with sessionFactory() as session:  # Create a new session            
+            # handle possible PK not enough case and folow solution
+            try:
+                recycler_storage = await RecyclerStorageFactory(size=5)
+            except ImpossibleToGenerateMock as e:
+                if e.solution > 0:
+                    recycler_storage = await RecyclerStorageFactory(size=e.solution) 
+                else:
+                    print('all possible RecyclersStorages already created')
+                    return 'all possible RecyclersStorages already created'
+
+            # pull entities to the DB
+            for el in recycler_storage:
+                print(el.__dict__) # TODO: move in logs
+                session.add(el) 
+                await session.commit() 
+                # feed data to Demon via IPC
+                send_command_to_demon('RecyclerStorage_ADD', convert_to_pydentic(el, RecyclerStorage))
 
 
 if __name__ == "__main__":

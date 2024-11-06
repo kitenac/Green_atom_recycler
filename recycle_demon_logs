@@ -1,0 +1,28 @@
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='6c96949b-66f1-4d3c-9da4-be9437e7f439', created_at=datetime.datetime(2024, 11, 6, 12, 58, 4, 637253), updated_at=datetime.datetime(2024, 11, 6, 12, 58, 4, 637371), amount=5, category='биоотходы', polluter_id='1851d2f0-63a4-4701-b2c5-c68c27dd7be1'))
+Last RecyclerStorage now: {'id': None, 'created_at': datetime.datetime(2024, 11, 6, 12, 40, 35, 828219), 'updated_at': datetime.datetime(2024, 11, 6, 12, 53, 15, 774406), 'recycler_id': '02065a05-b7fe-4907-8d1b-01388d62df10', 'category': 'пластик                         ', 'capacity': 3, 'amount_occupied': 0}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='a4c1c90c-364c-4304-b775-80251cb8d003', created_at=datetime.datetime(2024, 11, 6, 13, 4, 37, 649299), updated_at=datetime.datetime(2024, 11, 6, 13, 4, 37, 649439), amount=1, category='пластик', polluter_id='1851d2f0-63a4-4701-b2c5-c68c27dd7be1'))
+Last RecyclerStorage now: {'id': None, 'created_at': datetime.datetime(2024, 11, 6, 12, 40, 35, 828219), 'updated_at': datetime.datetime(2024, 11, 6, 12, 53, 15, 774406), 'recycler_id': '02065a05-b7fe-4907-8d1b-01388d62df10', 'category': 'пластик                         ', 'capacity': 3, 'amount_occupied': 0}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='42c62996-6194-45ce-9725-1c9adeb2820a', created_at=datetime.datetime(2024, 11, 6, 13, 13, 43, 797643), updated_at=datetime.datetime(2024, 11, 6, 13, 13, 43, 799007), amount=1, category='биоотходы', polluter_id='1851d2f0-63a4-4701-b2c5-c68c27dd7be1'))
+Last RecyclerStorage now: {'id': None, 'created_at': datetime.datetime(2024, 11, 6, 12, 40, 35, 828219), 'updated_at': datetime.datetime(2024, 11, 6, 13, 4, 37, 649442), 'recycler_id': '02065a05-b7fe-4907-8d1b-01388d62df10', 'category': 'биоотходы                       ', 'capacity': 1, 'amount_occupied': 0}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='c93d908d-2e69-482f-a5ff-069d9e8099af', created_at=datetime.datetime(2024, 11, 6, 13, 23, 12, 231932), updated_at=datetime.datetime(2024, 11, 6, 13, 23, 12, 232050), amount=1, category='биоотходы', polluter_id='1851d2f0-63a4-4701-b2c5-c68c27dd7be1'))
+Last RecyclerStorage now: {'id': None, 'created_at': datetime.datetime(2024, 11, 6, 12, 40, 35, 828219), 'updated_at': datetime.datetime(2024, 11, 6, 13, 13, 43, 799042), 'recycler_id': '374083d2-5626-474b-bde7-7cb15dde12e7', 'category': 'пластик                         ', 'capacity': 2, 'amount_occupied': 0}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='7385faf0-d147-47db-9f8e-0c5f9a754029', created_at=datetime.datetime(2024, 11, 6, 13, 24, 47, 260556), updated_at=datetime.datetime(2024, 11, 6, 13, 24, 47, 260670), amount=1, category='биоотходы', polluter_id='1851d2f0-63a4-4701-b2c5-c68c27dd7be1'))
+Last polluter waste now: {'id': '7385faf0-d147-47db-9f8e-0c5f9a754029', 'created_at': datetime.datetime(2024, 11, 6, 13, 24, 47, 260556), 'updated_at': datetime.datetime(2024, 11, 6, 13, 24, 47, 260670), 'amount': 1, 'category': 'биоотходы', 'polluter_id': '1851d2f0-63a4-4701-b2c5-c68c27dd7be1'}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='a46a15ab-1d63-49ed-a31d-dcd2f6b138b4', created_at=datetime.datetime(2024, 11, 6, 13, 32, 51, 598605), updated_at=datetime.datetime(2024, 11, 6, 13, 32, 51, 598732), amount=1, category='биоотходы', polluter_id='831312af-7b96-4758-997c-96ab09b58bfe'))
+Last polluter waste now: {'id': 'a46a15ab-1d63-49ed-a31d-dcd2f6b138b4', 'created_at': datetime.datetime(2024, 11, 6, 13, 32, 51, 598605), 'updated_at': datetime.datetime(2024, 11, 6, 13, 32, 51, 598732), 'amount': 1, 'category': 'биоотходы', 'polluter_id': '831312af-7b96-4758-997c-96ab09b58bfe'}
+
+IPC-queue got command:
+ ('PolluterWaste_ADD', PolluterWaste(id='5b343f40-4361-429e-bcad-a1822199ae6f', created_at=datetime.datetime(2024, 11, 6, 13, 32, 51, 598605), updated_at=datetime.datetime(2024, 11, 6, 13, 32, 51, 598732), amount=1, category='биоотходы', polluter_id='831312af-7b96-4758-997c-96ab09b58bfe'))
+Last polluter waste now: {'id': '5b343f40-4361-429e-bcad-a1822199ae6f', 'created_at': datetime.datetime(2024, 11, 6, 13, 32, 51, 598605), 'updated_at': datetime.datetime(2024, 11, 6, 13, 32, 51, 598732), 'amount': 1, 'category': 'биоотходы', 'polluter_id': '831312af-7b96-4758-997c-96ab09b58bfe'}

@@ -8,7 +8,7 @@ digraph {
         <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Polluter_OO</FONT></TD></TR>
         <TR>
                          <TD BGCOLOR="#BBDEFB">name</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(64) ()</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(64) ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">x_geo</TD>
                          <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
@@ -30,7 +30,7 @@ digraph {
         <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Recycler_MNO</FONT></TD></TR>
         <TR>
                          <TD BGCOLOR="#BBDEFB">name</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(64) ()</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(64) ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">x_geo</TD>
                          <TD BGCOLOR="#BBDEFB">NUMERIC(12, 6) ()</TD>
@@ -52,7 +52,7 @@ digraph {
         <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">WasteCategory</FONT></TD></TR>
         <TR>
                          <TD BGCOLOR="#BBDEFB">category</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(32) (PK)</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(32) (PK)</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">time_to_recycle</TD>
                          <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
@@ -71,7 +71,7 @@ digraph {
                          <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">category</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(32) (PK)</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(32) (PK)</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">capacity</TD>
                          <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
@@ -98,7 +98,7 @@ digraph {
                          <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">category</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(32) ()</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(32) ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">id</TD>
                          <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>
@@ -125,7 +125,7 @@ digraph {
                          <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">category</TD>
-                         <TD BGCOLOR="#BBDEFB">CHAR(32) ()</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(32) ()</TD>
                          </TR><TR>
                          <TD BGCOLOR="#BBDEFB">id</TD>
                          <TD BGCOLOR="#BBDEFB">CHAR(36) (PK)</TD>

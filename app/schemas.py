@@ -32,7 +32,7 @@ class CommonTable(BaseModel):
    updated_at: Optional[datetime] =  None
 
 class CommonOrg(CommonTable):
-   name: str = Field(..., max_length=64) 
+   name: str  
    x_geo: float
    y_geo: float
 
@@ -43,8 +43,8 @@ class Recycler_MNO(CommonOrg):
    pass
 
 class RecyclerStorage(CommonTable):
-   recycler_id: Annotated[str, 'id of Recycler'] = Field(..., length=36)
-   category:    Annotated[str, "биоотходы | стекло | пластик"] = Field(..., length=32)
+   recycler_id: Annotated[str, 'id of Recycler']
+   category:    Annotated[str, "биоотходы | стекло | пластик"]
         
    capacity: int        # total capacity of Recycler
    amount_occupied: Optional[int] = 0 # total size of recived wastes
@@ -57,7 +57,7 @@ class RecyclerStorage(CommonTable):
 
 class WasteInfo(CommonTable):
    amount: int 
-   category: str = Field(..., max_length=32) 
+   category: str
 
 class PolluterWaste(WasteInfo):
    polluter_id: str = Field(..., length=36)
@@ -73,3 +73,21 @@ class WasteCategory(CommonTable):
 
    category: str
    time_to_recycle: timedelta
+
+
+
+def convert_to_pydentic(model_obj, pydentic_cls):
+   '''
+   - also converts UUID poles to str (id pole: pole "id" or pole that ends with "_id")
+   
+   sql_alchemy_model -> pydentic_obj
+   model_obj - sqlacjemy object coresponding to given pydentic class
+   '''
+   params = dict = model_obj.__dict__
+   for k, v in params.items():
+      # cast ids to str - to make pydentic and postgres CALM about UUID4 and str for id in different places - everywhere`ll be str
+      if k == 'id' or k.endswith('_id'):
+         params[k] = str(v)         
+
+   return pydentic_cls(**params)
+
