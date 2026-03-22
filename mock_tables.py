@@ -7,7 +7,7 @@ from factory import LazyFunction
 from factory.alchemy import SQLAlchemyModelFactory
 from faker import Faker # for mocks data
 
-from app.db import sessionFactory
+from app.db import sessionFactory, init_models
 from app.models import Models
 
 from sqlalchemy import func
@@ -77,7 +77,7 @@ async def get_sources_len() -> dict:
 faker = Faker() # faker object to generate truth-like data on different topics automatically
 
 # Create Factory Classes:  This allows you to easily generate instances of your models with realistic data
-# LazyFunction - helps create UNIQ valuse by delaing evaluation of code inside until initing an object | without it poles would get random value, but it`d be same for all instances - due it has been  already counted
+# LazyFunction - helps create UNIQ values by delaing evaluation of code inside until initing an object | without it poles would get random value, but it`d be same for all instances - due it has been  already counted
 
 class PolluterFactory(SQLAlchemyModelFactory):
     class Meta:
@@ -239,7 +239,7 @@ class MockAtomEco:
           - Waste by random Polluter 
           - Storages of random sizes for Recyclers
         '''
-        async with sessionFactory() as session:  # Create a new session
+        async with sessionFactory() as session:  # Create a new session | "with" - to auto-manage session - close it after usage
             # Generate entities instances - using the factory | generate_ - in-memory creation - no need to db-session passing
             polluter_waste = await PolluterWasteFactory(size=5)
             
@@ -315,6 +315,9 @@ class MockAtomEco:
 
 
 if __name__ == "__main__":
+    # create Tables in DB Atom_Eco (assumes Postgress container with such DB name is up)
+    asyncio.run(init_models())
+
     # fill low-lvl tables (without FK) - at start
     asyncio.run(MockAtomEco.initial_populate())
 

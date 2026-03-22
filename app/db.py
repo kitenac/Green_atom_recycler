@@ -4,7 +4,6 @@ Configuring access to Database
 - individual db-session for each request
 '''
 import asyncio
-from sqlalchemy import text # for raw queries
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from app.models import Base # all Tables from models inherits from it => can create `em here 
 
@@ -39,11 +38,13 @@ engine = create_async_engine(DATABSE_URL)
 # Создаём все таблицы, если ещё не были созданы
 #Base.metadata.create_all(engine)
 async def init_models():
-    async with engine.begin() as conn:
+    async with engine.begin() as conn:  
         #await conn.run_sync(Base.metadata.drop_all)
+        print('Im inside :)')
         await conn.run_sync(Base.metadata.create_all)
 
-asyncio.run(init_models())
+
+# asyncio.run(init_models()) # перенёс в mock_tabels - там первый инит
 
 
 

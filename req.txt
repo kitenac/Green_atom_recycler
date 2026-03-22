@@ -2,7 +2,6 @@ fastapi
 uvicorn
 sqlalchemy
 cryptography                        # establish sql connection
-psycopg[binary,pool]                # aka psycopg3 - it supports async DB engine 
 sqlalchemy-data-model-visualizer    # cool lib to visualize sqlalchemy models and their relationships
 sqladmin                            # for cool admin page - eazy db management
 factory_boy                         # for mocks - realistic data + sqlalchemy integration
@@ -10,4 +9,6 @@ faker                               # for mocks data
 networkx                            # for generating graph of relations between entities
 matplotlib                          # for generating graph of relations between entities
 sqlalchemy_utils                    # for creating DB
-psycopg2                            # dependency for creating DB
+psycopg[binary,pool]                # aka psycopg3 - it supports async DB engine 
+psycopg2-binary                     # another patch for pity psycopg deprication :) -hope next time it won`t force u to seek for another stable name |  dependency for creating DB
+# psycopg2                            # dependency for creating DB

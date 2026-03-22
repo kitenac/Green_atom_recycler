@@ -426,7 +426,7 @@ class RecyclerDemon:
         
                 with open('recycle_demon_logs', mode='a') as logs:
                     logs.write(f'\nIPC-queue got command:\n {command}')
-                    logs.write(f'\nLast polluter waste now: {self.wastes_queury[-1].__dict__}\n')
+                    #logs.write(f'\nLast polluter waste now: {self.wastes_queury[-1].__dict__}\n')
                     #logs.write(f'\nLast RecyclerStorage now: {self.storage_slots[-1].__dict__}\n')
 
     ''' 
