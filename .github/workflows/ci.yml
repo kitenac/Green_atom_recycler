@@ -42,7 +42,7 @@ jobs:
           python-version: "3.13"
         
       - name: Install pip and Setup deps
-        run: apt-get install python3-pip && pip install -r req.txt
+        run: apt update && apt-get install python3-pip && pip install -r req.txt
 
       # тут будут простые и быстрые тесты функций на логику 
       - name: Test with pytest
@@ -66,7 +66,7 @@ jobs:
         python-version: "3.13"
 
     - name: Install pip and Setup deps
-      run: apt-get install python3-pip && pip install -r req.txt
+      run: apt update && apt-get install python3-pip && pip install -r req.txt
     
     - name: Generate diagram      
       run: |
