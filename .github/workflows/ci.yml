@@ -41,11 +41,11 @@ jobs:
         with:
           python-version: "3.13"
         
-      - name: Create and enter virtual enviroment "myenv" (security demand from github runner)
-        run: python3 -m venv myenv && . myenv/bin/activate
+      - name: Create virtual enviroment "myenv" (security demand from github runner)
+        run: python3 -m venv myenv 
 
-      - name: Install pip and Setup deps
-        run: apt update -y && apt install -y python3-pip && pip install -r req.txt
+      - name: Enter virtual enviroment (entering venv vanishes each step), then installing pip and Setup deps in it
+        run: . myenv/bin/activate && apt update -y && apt install -y python3-pip && pip install -r req.txt
 
       # тут будут простые и быстрые тесты функций на логику 
       - name: Test with pytest
@@ -68,15 +68,16 @@ jobs:
       with:
         python-version: "3.13"
 
-    - name: Create and enter virtual enviroment "myenv" (security demand from github runner)
-      run: python3 -m venv myenv && . myenv/bin/activate
+    - name: Create virtual enviroment "myenv" (security demand from github runner)
+      run: python3 -m venv myenv 
 
-    - name: Install pip and Setup deps
-      run: apt update -y && apt install -y python3-pip && pip install -r req.txt
+    - name: Enter virtual enviroment (entering venv vanishes each step), then installing pip and Setup deps in it
+      run: . myenv/bin/activate && apt update -y && apt install -y python3-pip && pip install -r req.txt
     
     - name: Generate diagram      
       run: |
        echo 'All CI jobs passed - updating DB tables diagram...' /
+       . myenv/bin/activate 
        apt update 
        apt install sqlalchemy && apt install graphviz && apt install --reinstall xdg-utils
        python3 -m db-visualizer.db-visualizer
