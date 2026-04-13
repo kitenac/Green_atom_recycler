@@ -104,3 +104,7 @@ class Models:
         recycler_id  = Column(CHAR(36), ForeignKey('Recycler_MNO.id'))
         release_time = Column(TIMESTAMP)   # counts as: CURRENT_TIME + WasteCategory.time_to_recycle
         recycler = relationship('Recycler_MNO')
+
+# class to check if CI can autogenerate illustration of dbs` Tables
+    class TestCI(CommonModel):
+        __tablename__ = 'Testing_CI'
