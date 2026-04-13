@@ -1,0 +1,44 @@
+# Usage in ci.yml:
+#      - name: Push my artifact 
+#        uses: ./.github/actions/my_push_artifact
+#        with:
+#          artifact-name: my-data
+#          branch: master
+#          commit-message: "Added generated file from job ..."
+
+
+
+name: "Push Artifact"
+description: "Download artifact and push to repo"
+
+# input parameters of this action: name, branch, commit-message
+inputs:
+  artifact-name:
+    description: "Name of the artifact to download"
+    required: true
+  branch:
+    description: "Target branch for push"
+    required: true
+  commit-message:
+    description: "Commit message"
+    required: false
+    default: "[CI] Added generated file (artifact) from job"
+
+runs:
+  using: "composite" # action that tells: "it`s a custom action"
+  steps:
+    - name: Download target artifact 
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.artifact-name }}     # artifact name from input params
+        path: ./artifact-content
+
+    - name: Commit and push
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        cp -r ./artifact-content/* . || true
+        git add .
+        git commit -m "${{ inputs.commit-message }}" 
+        git push origin ${{ inputs.branch }}

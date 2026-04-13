@@ -1,0 +1,120 @@
+#                Workflow/pipeline
+#
+#  generate db illustration  ---> push to repo
+#  
+# *each job runs in separate space (paralley) - by default
+#
+# !!! works via ssh keys (for other access options, i.e. PAT - modify checkout steps everywhere)
+
+name: CI pipeline for Project
+
+# ========== Triggers ==========
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: ['data_model_diagram', 'data_model_diagram.svg'] # avoid triggering CI on these diagrams - oughta generate via CI`s pipeline itself: i.e push in repository on passing all the tests - to update Readme with actual DB diagram. push => action => everlasting loop... - so reduce it
+  pull_request:
+    branches: [ main ]
+    paths-ignore: ['data_model_diagram', 'data_model_diagram.svg'] # same
+
+permissions:
+  contents: write # "write" perm - to push updated diagrams of DB`s Tables
+
+
+# ========== Jobs ==========
+jobs: 
+  # (ТODO - add pytests to project) Tests
+  Unit_tests:
+     # needs: Linter_check # TODO - basic linter check before runnin tests 
+     runs-on: ubuntu-latest
+     container:
+      image: debian:stable-slim # convinent way to run Workflow(pipline) on Debian - using container
+  
+     steps:
+      - name: download repository`s files
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Setup deps
+        run: pip install -r req.txt
+
+      # тут будут простые и быстрые тесты функций на логику 
+      - name: Test with pytest
+        run: pytest
+
+
+  # Auto-generate and push new diagram of DB`s Tables 
+  Draw_DB_diagram:
+   needs: [Unit_tests]        # generate after ALL CI tests passed 
+   runs-on: ubuntu-latest
+  
+   steps:
+    - name: download repository`s files
+      uses: actions/checkout@v4
+      with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Setup deps
+      run: pip install -r req.txt
+    
+    - name: Generate diagram      
+      run: |
+       echo 'All CI jobs passed - updating DB tables diagram...' /
+       apt-get update 
+       apt-get install sqlalchemy && apt-get install graphviz && apt-get install --reinstall xdg-utils
+       python3 -m db-visualizer.db-visualizer
+    
+    - name: Upload Artefact # load illustration of DB in Artefacts (can be accessed from different jobs) 
+      uses: actions/upload-artifact@v3
+      with:
+          name: data_model_diagram
+          path: data_model_diagram.svg
+          retention-days: 1     # 1 day to hold - minimum
+
+  Push_Artifacts:
+   needs: [Draw_DB_diagram]   # push artifacts if all CI tests are passed and all artefacts are made
+
+  # push diagram of DB 
+  # TODO: сделай, чтоб несколько артефактов можно было передать на пуш разом, а не по одному
+   runs-on: ubuntu-latest
+   steps:
+    - name: Push Artefacts - illustration of DB 
+      uses: ./.github/actions/my_push_artifact
+      with:
+        artifact-name: data_model_diagram
+        branch: master
+        commit-message: "[CI] pushing Artefacts: Generated newest illustration of DB Tables relationships"
+      
+  
+
+#!!! (Wish) Заменить на автоисправление - думаю, функции линтера в CI ни к чему 
+#  Linter_check:
+#   runs-on: ubuntu-latest
+#  
+#   steps:
+#   - uses: actions/checkout@v4 # someth manual to be able to push into repository
+#   
+#   - name: Set up Python 3.13.5
+#     uses: actions/setup-python@v3
+#     with:
+#       python-version: "3.13.5"
+#          
+#   # -------- TODO: выбрать, какие баги/правила стиля отслеживать -см. --select -------- 
+#   - name: Lint with flake8
+#     run: |
+#      # stop the build if there are Python syntax errors or undefined names
+#      flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+#      # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+#      flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+#
+#    в конце концов - в артифакты пушить в код 
+#    !!!! как-то избежать триггер на бесконечный запуск CI из-за форматирования (формально - исправления) - мб есть какая-то настройка yml для игнора пуша из actions, а не пользователеи?
+
+
+# TODO: 
+# (Suoer Wish) --------- CD part -------
+#  deploy:
+#    needs: Unit_tests
+#    runs-on: VPS_IP/Domain i guess
+#    ...

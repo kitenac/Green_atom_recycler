@@ -1,0 +1,9 @@
+# workpiece if i want complex pipeline later (consists of prewritten actions)
+# 
+# - USING: in ci.yml via "uses: ./.github/actions/my_action"
+
+name: My action
+description: 'some cool staff to reuse in ci.yml'
+
+runs:
+# mb later :)
