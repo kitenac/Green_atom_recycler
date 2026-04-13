@@ -56,7 +56,9 @@ jobs:
   Draw_DB_diagram:
    needs: [Unit_tests]        # generate after ALL CI tests passed 
    runs-on: ubuntu-latest
-  
+   container:
+    image: debian:stable-slim # convinent way to run Workflow(pipline) on Debian - using container
+   
    steps:
     - name: download repository`s files
       uses: actions/checkout@v4
