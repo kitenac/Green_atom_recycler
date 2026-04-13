@@ -42,7 +42,7 @@ jobs:
           python-version: "3.13"
         
       - name: Create and enter virtual enviroment "myenv" (security demand from github runner)
-        run: python3 -m venv myenv && source myenv/bin/activate
+        run: python3 -m venv myenv && . myenv/bin/activate
 
       - name: Install pip and Setup deps
         run: apt update -y && apt install -y python3-pip && pip install -r req.txt
@@ -69,7 +69,7 @@ jobs:
         python-version: "3.13"
 
     - name: Create and enter virtual enviroment "myenv" (security demand from github runner)
-      run: python3 -m venv myenv && source myenv/bin/activate
+      run: python3 -m venv myenv && . myenv/bin/activate
 
     - name: Install pip and Setup deps
       run: apt update -y && apt install -y python3-pip && pip install -r req.txt
