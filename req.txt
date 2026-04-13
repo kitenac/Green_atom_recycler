@@ -12,4 +12,4 @@ sqlalchemy_utils                    # creating DB
 psycopg[binary,pool]                # aka psycopg3 - it supports async DB engine 
 psycopg2-binary                     # another patch for pity psycopg deprication :) -hope next time it won`t force u to seek for another stable name |  dependency for creating DB
 # psycopg2                          # dependency for creating DB
-pytests                             # tests    
+pytest                              # tests    

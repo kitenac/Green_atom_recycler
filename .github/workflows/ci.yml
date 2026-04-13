@@ -44,7 +44,7 @@ jobs:
       - name: Create virtual enviroment "myenv" (security demand from github runner)
         run: python3 -m venv myenv 
 
-      - name: Enter virtual enviroment (entering venv vanishes each step), then installing pip and Setup deps in it
+      - name: Enter virtual enviroment (!!! venv vanishes each step - need to enter each time), then installing pip and Setup deps in it
         run: . myenv/bin/activate && apt update -y && apt install -y python3-pip && pip install -r req.txt
 
       # тут будут простые и быстрые тесты функций на логику 
