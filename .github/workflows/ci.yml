@@ -11,10 +11,10 @@ name: CI pipeline for Project
 # ========== Triggers ==========
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths-ignore: ['data_model_diagram', 'data_model_diagram.svg'] # avoid triggering CI on these diagrams - oughta generate via CI`s pipeline itself: i.e push in repository on passing all the tests - to update Readme with actual DB diagram. push => action => everlasting loop... - so reduce it
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     paths-ignore: ['data_model_diagram', 'data_model_diagram.svg'] # same
 
 permissions:
