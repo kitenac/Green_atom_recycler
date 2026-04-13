@@ -49,7 +49,7 @@ jobs:
 
       # тут будут простые и быстрые тесты функций на логику 
       - name: Test with pytest
-        run: pytest
+        run: . myenv/bin/activate && pytest
 
 
   # Auto-generate and push new diagram of DB`s Tables 
