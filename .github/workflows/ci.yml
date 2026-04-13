@@ -36,6 +36,11 @@ jobs:
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Set up Python 3.13.5
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.13.5"
+        
       - name: Setup deps
         run: pip install -r req.txt
 
@@ -54,6 +59,11 @@ jobs:
       uses: actions/checkout@v4
       with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Set up Python 3.13.5
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.13.5"
 
     - name: Setup deps
       run: pip install -r req.txt
