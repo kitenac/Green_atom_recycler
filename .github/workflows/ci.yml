@@ -36,10 +36,10 @@ jobs:
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up Python 3.13.5
+      - name: Set up Python 3.13
         uses: actions/setup-python@v3
         with:
-          python-version: "3.13.5"
+          python-version: "3.13"
         
       - name: Setup deps
         run: pip install -r req.txt
@@ -60,10 +60,10 @@ jobs:
       with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Set up Python 3.13.5
+    - name: Set up Python 3.13
       uses: actions/setup-python@v3
       with:
-        python-version: "3.13.5"
+        python-version: "3.13"
 
     - name: Setup deps
       run: pip install -r req.txt
@@ -105,10 +105,10 @@ jobs:
 #   steps:
 #   - uses: actions/checkout@v4 # someth manual to be able to push into repository
 #   
-#   - name: Set up Python 3.13.5
+#   - name: Set up Python 3.13
 #     uses: actions/setup-python@v3
 #     with:
-#       python-version: "3.13.5"
+#       python-version: "3.13"
 #          
 #   # -------- TODO: выбрать, какие баги/правила стиля отслеживать -см. --select -------- 
 #   - name: Lint with flake8
