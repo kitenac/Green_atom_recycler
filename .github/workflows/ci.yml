@@ -77,8 +77,8 @@ jobs:
       run: |
        echo 'All CI jobs passed - updating DB tables diagram...' /
        . myenv/bin/activate 
-       apt-get update 
-       apt-get install sqlalchemy && apt-get install graphviz && apt install --reinstall xdg-utils
+       apt-get update -y
+       pip install sqlalchemy && pip install graphviz && apt-get install graphviz && apt install --reinstall xdg-utils
        python3 -m db-visualizer.db-visualizer
     
     - name: Upload Artefact # load illustration of DB in Artefacts (can be accessed from different jobs) 
