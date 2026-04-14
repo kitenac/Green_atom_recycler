@@ -74,7 +74,7 @@ jobs:
       run: python3 -m venv myenv 
 
     - name: Generate diagram      
-      run: echo 'All CI jobs passed - updating DB tables diagram...' && . myenv/bin/activate && apt-get update -y pip install sqlalchemy && pip install graphviz && apt-get install -y graphviz && apt install -y --reinstall xdg-utils && python3 -m db-visualizer.db-visualizer
+      run: echo 'All CI jobs passed - updating DB tables diagram...' && . myenv/bin/activate && apt-get update -y && pip install sqlalchemy && pip install graphviz && apt-get install -y graphviz && apt install -y --reinstall xdg-utils && python3 -m db-visualizer.db-visualizer
     
     - name: Upload Artefact # load illustration of DB in Artefacts (can be accessed from different jobs) 
       uses: actions/upload-artifact@v4
