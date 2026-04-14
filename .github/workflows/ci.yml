@@ -75,7 +75,7 @@ jobs:
 
     - name: Generate diagram      
       run: |
-       echo 'All CI jobs passed - updating DB tables diagram...' /
+       echo 'All CI jobs passed - updating DB tables diagram...' 
        . myenv/bin/activate 
        apt-get update -y
        pip install sqlalchemy && pip install graphviz && apt-get install graphviz && apt install --reinstall xdg-utils
