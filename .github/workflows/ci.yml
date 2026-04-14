@@ -73,8 +73,17 @@ jobs:
     - name: Create virtual enviroment "myenv" (security demand from github runner)
       run: python3 -m venv myenv 
 
+      
+    - name: Enter virtual enviroment (!!! venv vanishes each step - need to enter each time), then installing pip and Setup deps in it
+      run: . myenv/bin/activate && apt update -y && apt install -y python3-pip && pip install -r req.txt
+
     - name: Generate diagram      
-      run: echo 'All CI jobs passed - updating DB tables diagram...' && . myenv/bin/activate && apt-get update -y && pip install sqlalchemy && pip install graphviz && apt-get install -y graphviz && apt install -y --reinstall xdg-utils && python3 -m db-visualizer.db-visualizer
+      run: |
+       echo 'All CI jobs passed - updating DB tables diagram...' 
+       . myenv/bin/activate 
+       apt-get update -y
+       pip install sqlalchemy && pip install graphviz && apt-get install -y graphviz && apt install -y --reinstall xdg-utils
+       python3 -m db-visualizer.db-visualizer
     
     - name: Upload Artefact # load illustration of DB in Artefacts (can be accessed from different jobs) 
       uses: actions/upload-artifact@v4
