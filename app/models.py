@@ -106,5 +106,5 @@ class Models:
         recycler = relationship('Recycler_MNO')
 
 # class to check if CI can autogenerate illustration of dbs` Tables
-    class TestCI(CommonModel):
-        __tablename__ = 'Testing_CI'
+    class TestCI2(CommonModel):
+        __tablename__ = 'Testing_CI2'
