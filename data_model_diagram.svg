@@ -338,13 +338,13 @@
 </g>
 <text text-anchor="middle" x="371" y="-162" font-family="Roboto" font-size="10.00">WasteCategory</text>
 </g>
-<!-- TestCI -->
+<!-- TestCI2 -->
 <g id="node7" class="node">
-<title>TestCI</title>
-<g id="a_node7"><a xlink:href="http://TestCI_details.html" xlink:title="&lt;TABLE&gt;">
+<title>TestCI2</title>
+<g id="a_node7"><a xlink:href="http://TestCI2_details.html" xlink:title="&lt;TABLE&gt;">
 <polygon fill="#3f51b5" stroke="transparent" points="735.5,-287 735.5,-306 901.5,-306 901.5,-287 735.5,-287"/>
 <polygon fill="none" stroke="black" points="735.5,-287 735.5,-306 901.5,-306 901.5,-287 735.5,-287"/>
-<text text-anchor="start" x="800.5" y="-293.4" font-family="Roboto" font-size="12.00" fill="white">TestCI</text>
+<text text-anchor="start" x="797" y="-293.4" font-family="Roboto" font-size="12.00" fill="white">TestCI2</text>
 <polygon fill="#bbdefb" stroke="transparent" points="735.5,-268 735.5,-287 809.5,-287 809.5,-268 735.5,-268"/>
 <polygon fill="none" stroke="black" points="735.5,-268 735.5,-287 809.5,-287 809.5,-268 735.5,-268"/>
 <text text-anchor="start" x="767" y="-274.4" font-family="Roboto" font-size="12.00">id</text>
