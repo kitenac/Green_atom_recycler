@@ -73,9 +73,10 @@ jobs:
     - name: Create virtual enviroment "myenv" (security demand from github runner)
       run: python3 -m venv myenv 
 
-      
+    # !!! to reduce =============
     - name: Enter virtual enviroment (!!! venv vanishes each step - need to enter each time), then installing pip and Setup deps in it
       run: . myenv/bin/activate && apt update -y && apt install -y python3-pip && pip install -r req.txt
+    # !!! to reduce =============
 
     - name: Generate diagram      
       run: |
@@ -99,6 +100,11 @@ jobs:
   # TODO: сделай, чтоб несколько артефактов можно было передать на пуш разом, а не по одному
    runs-on: ubuntu-latest
    steps:
+    - name: download repository`s files # copy repository bc i use local (in repository) action "my_push_artifact" bellow 
+      uses: actions/checkout@v4
+      with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
     - name: Push Artefacts - illustration of DB 
       uses: ./.github/actions/my_push_artifact
       with:
