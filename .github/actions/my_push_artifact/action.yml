@@ -41,4 +41,6 @@ runs:
         cp -r ./artifact-content/* . || true
         git add .
         git commit -m "${{ inputs.commit-message }}" 
-        git push origin ${{ inputs.branch }} || echo 'no changes happend to DB tables - all right :)'
+      
+        # bypass error status in CI when nothing to commit (no changes happened)
+        git status | grep 'nothing to commit, working tree clean' || git push origin ${{ inputs.branch }}
