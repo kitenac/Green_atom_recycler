@@ -39,8 +39,10 @@ runs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         cp -r ./artifact-content/* . || true
+
+        # finally commit + bypass error status in CI when nothing to commit (no changes happened - raises on "commit" and "push" - so moved `em in OR clause also "add" breaks grep matching so move it in OR too)
+        git status | grep 'nothing to commit, working tree clean' \
+        || (\
         git add .
-        git commit -m "${{ inputs.commit-message }}" 
-      
-        # bypass error status in CI when nothing to commit (no changes happened)
-        git status | grep 'nothing to commit, working tree clean' || git push origin ${{ inputs.branch }}
+        git commit -m "${{ inputs.commit-message }}" && \
+        git push origin ${{ inputs.branch }} )
