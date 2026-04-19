@@ -41,4 +41,4 @@ runs:
         cp -r ./artifact-content/* . || true
         git add .
         git commit -m "${{ inputs.commit-message }}" 
-        git push origin ${{ inputs.branch }}
+        git push origin ${{ inputs.branch }} || echo 'no changes happend to DB tables - all right :)'
