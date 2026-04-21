@@ -34,27 +34,26 @@ jobs:
       - name: download repository`s files
         uses: actions/checkout@v6
         with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create virtual enviroment "myenv" (security demand from github runner) 
-        run: python3 -m venv myenv 
-
-      - name: PATCH (download missing libs for CASH and other) and enter VENV - it affects pip`s (and packages) location
+      - name: PATCH (download missing libs for CASH and other)
         run: |
-         . myenv/bin/activate
          apt-get update 
          apt-get install -y lsb-release
          apt-get install -y python3-pip
         
-      - name: Setup Python 3.13
+      - name: Set up Python 3.13
         uses: actions/setup-python@v6
         with:
           python-version: "3.13"
           # CASH python dependencies (up to 10 Gb free storage vanishing every 7 days)  
           cache: "pip"
-          cache-dependency-path: "req.txt"   # name for custom/additional file with dependencies
-        
-      - name: Download dependencies 
+          cache-dependency-path: "req.txt"  
+
+      - name: Create virtual enviroment "myenv" (security demand from github runner) 
+        run: python3 -m venv myenv 
+
+      - name: Download dependencies in venv
         run: . myenv/bin/activate && pip install -r req.txt
 
       # тут будут простые и быстрые тесты функций на логику 
@@ -69,20 +68,14 @@ jobs:
    container:
     image: debian:stable-slim # convinent way to run Workflow(pipline) on Debian - using container
    
-
-    
    steps:
     - name: download repository`s files
       uses: actions/checkout@v6
       with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Create virtual enviroment "myenv" (security demand from github runner) 
-      run: python3 -m venv myenv 
-
     - name: PATCH (download missing libs for CASH and other)
       run: |
-       . myenv/bin/activate
        apt-get update 
        apt-get install -y lsb-release
        apt-get install -y python3-pip
@@ -94,7 +87,10 @@ jobs:
         cache: "pip"
         cache-dependency-path: "req.txt"  
 
-    - name: Download dependencies
+    - name: Create virtual enviroment "myenv" (security demand from github runner) 
+      run: python3 -m venv myenv 
+
+    - name: Download dependencies in venv
       run: . myenv/bin/activate && pip install -r req.txt
        
     - name: Generate diagram      
