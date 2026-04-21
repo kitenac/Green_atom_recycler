@@ -36,8 +36,11 @@ jobs:
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: PATCH (download lib for CASH)
-        run: apt-get update && apt-get install -y lsb-release
+      - name: PATCH (download missing libs for CASH and other)
+        run: |
+         apt-get update 
+         apt-get install -y lsb-release
+         apt install -y python3-pip
         
       - name: Set up Python 3.13
         uses: actions/setup-python@v6
@@ -47,11 +50,10 @@ jobs:
           cache: "pip"
           cache-dependency-path: "req.txt"   # name for custom/additional file with dependencies
         
-      - name: Create virtual enviroment "myenv" (security demand from github runner). Installing pip and Setup deps inside it.
+      - name: Create virtual enviroment "myenv" (security demand from github runner) and Setup deps inside it.
         run: |
          python3 -m venv myenv 
          . myenv/bin/activate
-         apt update -y && apt install -y python3-pip 
          pip install -r req.txt
 
       # тут будут простые и быстрые тесты функций на логику 
@@ -72,9 +74,12 @@ jobs:
       with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: PATCH (download lib for CASH)
-      run: apt-get update && apt-get install -y lsb-release
-
+    - name: PATCH (download missing libs for CASH and other)
+      run: |
+       apt-get update 
+       apt-get install -y lsb-release
+       apt install -y python3-pip
+       
     - name: Set up Python 3.13
       uses: actions/setup-python@v6
       with:
@@ -82,11 +87,10 @@ jobs:
         cache: "pip"
         cache-dependency-path: "req.txt"  
 
-    - name: Create virtual enviroment "myenv" (security demand from github runner). Installing pip and Setup deps inside it.
+    - name: Create virtual enviroment "myenv" (security demand from github runner) and Setup deps inside it.
       run: |
        python3 -m venv myenv 
-       . myenv/bin/activate
-       apt update -y && apt install -y python3-pip 
+       . myenv/bin/activate 
        pip install -r req.txt
 
     - name: Generate diagram      
