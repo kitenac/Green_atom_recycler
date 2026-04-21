@@ -46,9 +46,12 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-          # CASH python dependencies (up to 10 Gb free storage vanishing every 7 days)  
+          # CASH python dependencies (up to 10 Gb free storage vanishing every 7 days). specify pip version and permit update ENV vars to bypass pip problems
+          pip-version: '25.1.1'
           cache: "pip"
           cache-dependency-path: "req.txt"  
+          update-environment: true 
+
 
       - name: Create virtual enviroment "myenv" (security demand from github runner) 
         run: python3 -m venv myenv 
@@ -78,13 +81,16 @@ jobs:
       run: |
        apt-get update 
        apt-get install -y lsb-release
+       apt-get install -y python3-pip
        
     - name: Set up Python 3.13
       uses: actions/setup-python@v6
       with:
         python-version: "3.13"
+        pip-version: '25.1.1'
         cache: "pip"
         cache-dependency-path: "req.txt"  
+        update-environment: true 
 
     - name: Create virtual enviroment "myenv" (security demand from github runner) 
       run: python3 -m venv myenv 
