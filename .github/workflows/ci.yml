@@ -40,7 +40,7 @@ jobs:
         run: |
          apt-get update 
          apt-get install -y lsb-release
-         apt install -y python3-pip
+         apt-get install -y python3-pip
         
       - name: Set up Python 3.13
         uses: actions/setup-python@v6
@@ -78,7 +78,7 @@ jobs:
       run: |
        apt-get update 
        apt-get install -y lsb-release
-       apt install -y python3-pip
+       apt-get install -y python3-pip
        
     - name: Set up Python 3.13
       uses: actions/setup-python@v6
