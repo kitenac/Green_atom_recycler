@@ -92,7 +92,7 @@ jobs:
      - name: (PATCH) download and CACHE missing APT libs 
        uses: awalsh128/cache-apt-pkgs-action@latest
        with:
-        packages: lsb-release python3-pip graphviz
+        packages: lsb-release python3-pip 
         version: 1.0
         
       
@@ -106,15 +106,15 @@ jobs:
        uses: actions/cache@v4
        with: 
         path: ~/myenv  
-        key:  uuid-WITH_DRAW_LIBS-${{ runner.os }}-${{ hashFiles('req.txt') }}
+        key:  uuid-WITH_DRAW_LIBS2-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
      - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
        if: steps.cache-deps-venv.outputs.cache-hit != 'true'
        run: |
          python3 -m venv myenv 
          . myenv/bin/activate && pip install -r req.txt && pip install sqlalchemy && pip install graphviz
-         # fix for graphviz lib
-         apt-get update -y && apt install -y --reinstall xdg-utils
+         # setup graphviz lib (requires reinstall xdg-utils) 
+         apt-get update -y && apt-get install graphviz && apt install -y --reinstall xdg-utils
        
      - name: Generate diagram      
        run: |
