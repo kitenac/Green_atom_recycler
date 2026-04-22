@@ -59,7 +59,7 @@ jobs:
          path: ~/myenv
          # uniq key tells if we can reuse cache (checks if it`s same OS + same dependencies (req.txt), othervise - new cache)
          # if key misses (1 st time) - cache uploads in "path" on finishing job
-         key:  uuid-${{ runner.os }}-${{ hashFiles('req.txt') }}-${{ hashFiles('req.txt') }}
+         key:  uuid-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
 
       - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
@@ -106,7 +106,7 @@ jobs:
        uses: actions/cache@v4
        with: 
         path: ~/myenv  
-        key:  uuid-${{ runner.os }}-${{ hashFiles('req.txt') }}-${{ hashFiles('req.txt') }}
+        key:  uuid-WITH_DRAW_LIBS-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
      - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
        if: steps.cache-deps-venv.outputs.cache-hit != 'true'
