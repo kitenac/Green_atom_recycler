@@ -38,9 +38,8 @@ jobs:
       
       - name: Prepare APT (next step - auto install + cache with apt)
         run: apt-get update -y
-
       # custom neat action: download + cache APT libs (could make same with actions/cache@v4 and if clause - which is muuuuch longer)
-      - name: (PATCH) download and CACHE missing libs 
+      - name: (PATCH) download and CACHE missing APT libs 
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: lsb-release python3-pip
@@ -64,7 +63,8 @@ jobs:
 
 
       - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
-        if: steps.cache-deps-venv.outputs.cache-hit == 'false'
+        # "!= 'true'".  Not "== 'false'" due cache-hit may be '' - empty string
+        if: steps.cache-deps-venv.outputs.cache-hit != 'true'
         run: |
          python3 -m venv myenv 
          . myenv/bin/activate && pip install -r req.txt
@@ -87,7 +87,9 @@ jobs:
        with:
         ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-     - name: (PATCH) download and CACHE missing libs 
+     - name: Prepare APT (next step - auto install + cache with apt)
+       run: apt-get update -y
+     - name: (PATCH) download and CACHE missing APT libs 
        uses: awalsh128/cache-apt-pkgs-action@latest
        with:
         packages: lsb-release python3-pip graphviz
@@ -107,7 +109,7 @@ jobs:
         key:  uuid-${{ runner.os }}-${{ hashFiles('req.txt') }}-${{ hashFiles('req.txt') }}
 
      - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
-       if: steps.cache-deps-venv.outputs.cache-hit == 'false'
+       if: steps.cache-deps-venv.outputs.cache-hit != 'true'
        run: |
          python3 -m venv myenv 
          . myenv/bin/activate && pip install -r req.txt && pip install sqlalchemy && pip install graphviz
