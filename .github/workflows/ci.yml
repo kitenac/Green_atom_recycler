@@ -114,7 +114,7 @@ jobs:
          python3 -m venv myenv 
          . myenv/bin/activate && pip install -r req.txt && pip install sqlalchemy && pip install graphviz
          # setup graphviz lib (requires reinstall xdg-utils) 
-         apt-get update -y && apt-get install graphviz && apt install -y --reinstall xdg-utils
+         apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils
        
      - name: Generate diagram      
        run: |
