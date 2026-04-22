@@ -35,6 +35,9 @@ jobs:
         uses: actions/checkout@v6
         with:
             ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Prepare APT (next step - auto install + cache with apt)
+        run: apt-get update -y
 
       # custom neat action: download + cache APT libs (could make same with actions/cache@v4 and if clause - which is muuuuch longer)
       - name: (PATCH) download and CACHE missing libs 
@@ -89,6 +92,7 @@ jobs:
        with:
         packages: lsb-release python3-pip graphviz
         version: 1.0
+        
       
      - name: Set up Python 3.13
        uses: actions/setup-python@v6
