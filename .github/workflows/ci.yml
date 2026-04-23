@@ -39,7 +39,7 @@ jobs:
       - name: Prepare APT (next step - auto install + cache with apt)
         run: apt-get update -y
       # custom neat action: download + cache APT libs (could make same with actions/cache@v4 and if clause - which is muuuuch longer)
-      - name: (PATCH) download and CACHE missing APT libs 
+      - name: "[PATCH] download and CACHE missing APT libs" 
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: lsb-release python3-pip
@@ -89,7 +89,7 @@ jobs:
 
      - name: Prepare APT (next step - auto install + cache with apt)
        run: apt-get update -y
-     - name: (PATCH) download and CACHE missing APT libs 
+     - name: "[PATCH] download and CACHE missing APT libs" 
        uses: awalsh128/cache-apt-pkgs-action@latest
        with:
         packages: lsb-release python3-pip 
@@ -112,10 +112,14 @@ jobs:
        if: steps.cache-deps-venv.outputs.cache-hit != 'true'
        run: |
          python3 -m venv myenv 
-         . myenv/bin/activate && pip install -r req.txt && pip install sqlalchemy && pip install graphviz
-         # setup graphviz lib (requires reinstall xdg-utils) 
+         . myenv/bin/activate && pip install -r req.txt && pip install graphviz
+         # APT: setup graphviz lib (requires reinstall xdg-utils) 
          apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils
-       
+
+     - name: "[if CACHE hits | PATCH] Re-Setup graphviz lib (requires reinstall xdg-utils) without complete reinstall of it"  
+       if: steps.cache-deps-venv.outputs.cache-hit == 'true'
+       run: apt install -y --reinstall xdg-utils
+
      - name: Generate diagram      
        run: |
         echo 'All CI jobs passed - updating DB tables diagram...' 
