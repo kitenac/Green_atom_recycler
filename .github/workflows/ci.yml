@@ -95,7 +95,9 @@ jobs:
         packages: lsb-release python3-pip 
         version: 1.0
         
-      
+     - name: "[PATCH] Setup graphviz package each run (requires reinstall xdg-utils). mb optimize it later"  
+       run: apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils
+
      - name: Set up Python 3.13
        uses: actions/setup-python@v6
        with:
@@ -106,19 +108,14 @@ jobs:
        uses: actions/cache@v4
        with: 
         path: ./myenv  
+        # different key from cache of job above - bc graphviz install in "special way" - on run, othervise crushes
         key:  uuid-WITH_DRAW_LIBS3-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
      - name: '[if CACHE miss] Create venv "myenv" (security demand from github runner) and download dependencies in venv'
        if: steps.cache-deps-venv.outputs.cache-hit != 'true'
        run: |
          python3 -m venv myenv 
-         . myenv/bin/activate && pip install -r req.txt && pip install graphviz
-         # APT: setup graphviz lib (requires reinstall xdg-utils) 
-         apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils
-
-     - name: "[if CACHE hits | PATCH] Re-Setup graphviz lib (requires reinstall xdg-utils) without complete reinstall of it"  
-       if: steps.cache-deps-venv.outputs.cache-hit == 'true'
-       run: apt install -y --reinstall xdg-utils
+         . myenv/bin/activate && pip install -r req.txt && pip install graphviz 
 
      - name: Generate diagram      
        run: |
