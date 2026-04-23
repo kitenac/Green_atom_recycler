@@ -95,7 +95,10 @@ jobs:
         packages: lsb-release python3-pip 
         version: 1.0
         
-     - name: "[PATCH] Setup graphviz package each run (requires reinstall xdg-utils). mb optimize it later"  
+    # TODO optimize it - takes 20s!!!  
+    #   problem:  if just add graphviz to awalsh128/cache-apt-pkgs-action@latest above - it won`t work due it somehow requires immidiate xdg-utils reinstall. 
+    #   solution: somehow cache combination "apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils". 
+     - name: "[PATCH] Setup graphviz package each run (requires reinstall xdg-utils)"  
        run: apt-get update -y && apt-get install graphviz -y && apt install -y --reinstall xdg-utils
 
      - name: Set up Python 3.13
